@@ -1,0 +1,4 @@
+POSTGRES_USER=hello_flask
+POSTGRES_PASSWORD=hello_flask
+POSTGRES_DB=flask_db
+APP_SECRET_KEY=123

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: web.Dockerfile
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+      - ai
+    env_file:
+      - env
+    networks:
+      - db_net
+      - ai_net
+  ai:
+    build:  
+      context: .
+      dockerfile: ai.Dockerfile
+    #runtime: nvidia
+    networks:
+      - ai_net
+  db:
+    image: postgres:9.6.5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - env
+    networks:
+      - db_net
+networks:
+  db_net:
+    driver: bridge
+  ai_net:
+    driver: bridge
+volumes:
+  postgres_data:
